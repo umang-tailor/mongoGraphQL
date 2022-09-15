@@ -21,36 +21,43 @@ Mutation:{
       }
       console.log("user :>> ", user);
       let event = await events.findOne({
-        id: args.input.event_id,
+        _id: args.input.event_id,
       });
       if (!event) {
         throw "Invalid id";
       }
-      console.log("event :>> ", event);
+      console.log("event :>> ", args.input.event_id,event);
+      
  
       let userExits = await user_events.findOne({
-        
           user_id: user.id,
           event_id: args.input.event_id,
-        
       });
-      console.log("userExits :>> ", userExits);
+
+      console.log('userExits :>> ', userExits);
       if (userExits) {
         throw "Already invited";
       }
-      if (ctx.userData.id == event.user_id) {
-        let createObject = {
-        user_id: user.id,
-        event_id: args.input.event_id,
-        };
-        let event_user = await user_events.create(createObject);
-        console.log(event_user);
-        return{
-          status: constants.success_code,
-          message: "successfully created",
-          data: event_user,
-        };
+
+      console.log("here", ctx.userData.id,event.user_id);
+
+
+      if (ctx.userData.id != event.user_id.toString()) {
+        throw new Error("unAuthorized");
       }
+    
+      let createObject = {
+      user_id: user.id,
+      event_id: args.input.event_id,
+      };
+
+      let event_user = await user_events.create(createObject);
+      console.log(event_user);
+      return{
+        status: constants.success_code,
+        message: "successfully created",
+        data: event_user,
+      };
     } catch (error) {
       throw 'error'
     }
