@@ -39,7 +39,7 @@ Mutation:{
         throw "Already invited";
       }
 
-      console.log("here", ctx.userData.id,event.user_id);
+      // console.log("here", ctx.userData.id,event.user_id);
 
 
       if (ctx.userData.id != event.user_id.toString()) {

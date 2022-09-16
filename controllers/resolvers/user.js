@@ -214,16 +214,19 @@ Query: {
    listUsers : async (parent, args, ctx) => {
     console.log("start");
     try {
-      let result = await users.find({
-        order: [["createdAt", "DESC"]],
-        offset: parseInt(args.skip),
-        limit: parseInt(args.limit),
-      }) ; 
+      let result = await users.find()
+        .limit(limit*1)
+        .skip((page - 1) * limit)
+        const count = await users.countDocuments();
+        console.log("result :>> ", result);
       // console.log("result :>> ", result);
       return{
         status: constants.success_code,
         message: "successfully listed",
         data: result, 
+        users,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
       };
       
     } catch (error) {
