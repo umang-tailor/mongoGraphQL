@@ -29,6 +29,11 @@ const typeDefs = gql`
     password: String!
 }
 
+  input resetPassword{
+    email:String
+    
+  }
+
   type User {
     
     first_name: String
@@ -39,7 +44,7 @@ const typeDefs = gql`
   
   }
   type updatePassword{
-    email:String
+    resetKey:String
     password:String
   }
 
@@ -62,6 +67,10 @@ type ResponseUser{
    status:Int
 
   }
+  type ResponseResetPassword{
+    status:Int
+    resetkey: String
+  }
 
   type Query {
     listUsers: ResponseUsers! @isAuthorized
@@ -72,7 +81,7 @@ type ResponseUser{
     login(input: LoginInput!): LoginResponse 
     updatePassword(input:UpdatePassword!):ResponseUser @isAuthorized
     changePassword(input:changePassword):ResponseUser! @isAuthorized
-
+    resetPassword(input:resetPassword):ResponseResetPassword
   }
 `;
 

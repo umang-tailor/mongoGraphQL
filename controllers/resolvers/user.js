@@ -132,46 +132,36 @@ console.log("start");
       throw error
     }
   },
-//  resetPassword :async (req, res) => {
-//     try {
-//       let userPass = await users.findOne({
+ resetPassword :async (req, res) => {
+    try {
+      let userPass = await users.findOne({
         
-//           email: req.body.email,
+          email: args.input.email,
         
-//       });
-//       if (!userPass) {
-//         throw "invalid email";
-//       }
+      });
+      if (!userPass) {
+        throw "invalid email";
+      }
   
-//       let reset = {
-//         passwordReset: true,
-//         id: userPass.id,
-//       };
-//       let secret = token();
-//       let resetKey = jwt.sign(reset, secret, {
-//         expiresIn: 86400, // expires in 24 hours
-//       });
+      let reset = {
+        passwordReset: true,
+        id: userPass.id,
+      };
+      let secret = token();
+      let resetKey = jwt.sign(reset, secret, {
+        expiresIn: 86400, // expires in 24 hours
+      });
   
-//       res.json({
-//         status: constants.success_code,
-//         message: "password resetKey",
-//         resetKey: resetKey,
-//       });
-//     } catch (error) {
-//       console.log("error :>> ", error);
-//       res.status(500).json({
-//         status: constants.server_error_code,
-//         message:
-//           typeof error === "string"
-//             ? error
-//             : typeof error.message === "string"
-//             ? error.message
-//             : constants.server_error,
-//       });
-//       return;
-//     }
-//   },
-  updatePassword : async (parent, args, ctx) => {
+      return{
+        status: constants.success_code,
+        message: "password resetKey",
+        resetKey: resetKey,
+      }
+    } catch (error) {
+      throw 'error'
+    }
+  },
+updatePassword : async (parent, args, ctx) => {
     console.log("start");
     try {
       let secret = token();
