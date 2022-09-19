@@ -79,7 +79,7 @@ type ResponseUser{
   type Mutation {
     registerUser(input:InputRegisterUser): ResponseUser
     login(input: LoginInput!): LoginResponse 
-    updatePassword(input:UpdatePassword!):ResponseUser @isAuthorized
+    updatePassword(input:UpdatePassword!):ResponseUser 
     changePassword(input:changePassword):ResponseUser! @isAuthorized
     resetPassword(input:resetPassword):ResponseResetPassword
   }
