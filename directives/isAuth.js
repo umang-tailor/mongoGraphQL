@@ -20,7 +20,7 @@ const directiveResolvers = {
               message: "unauthorized",
             });
           }
-        //   console.log("tokenData :>> ", tokenData);
+          console.log("tokenData :>> ", tokenData);
         } catch (error) {
           console.log("error :>> ", error);
           return ({

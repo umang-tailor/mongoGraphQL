@@ -9,12 +9,12 @@ module.exports={
   Mutation:{
  createEvent : async (parent,args,ctx) => {
     try {
-      console.log("!!!!start");
+      // console.log("!!!!start",ctx);
       let createObject = {
         event_name: args.input.event_name,
         user_id: ctx.userData.id,
       };
-      console.log(createObject);
+      // console.log(createObject);
       let event = await events.create(createObject);
 
     //   let createObject1 = {
@@ -30,7 +30,8 @@ module.exports={
     });
   
     } catch (error) {
-      throw 'error'
+      console.log('error :>> ', error);
+      throw error
     }
   },
  updateEvent : async (parent,args,ctx) => {
